@@ -1,0 +1,53 @@
+<idea-plugin version="2">
+  <id>FineReport dev</id>
+  <name>FineReport dev</name>
+  <version>0.1</version>
+  <vendor email="jinsihou.1992@qq.com">jinsihou</vendor>
+  <description><![CDATA[
+      用来快速建立FineReport的插件模块代码.<br>
+      <p>使用:</p>
+      <ul>
+        <li>在主工程中点击新建Modules,选择FineReport;</li>
+        <li>找到FR Plugin Framework,点击勾选并选中下方Function Record(important!);</li>
+        <li>最后填入模块名点击完成,就创建了一个插件模板。</li>
+      </ul>
+      <p>当前创建的文件包括国际化,功能点记录,插件配置文件和插件构建配置文件。</p>
+      <b>注意:创建之后请手动添加依赖。</b>
+    ]]></description>
+  <change-notes><![CDATA[
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="141.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij" >
+    <moduleType id="FR_JAVA_MODULE" implementationClass="com.fr.plugin.FRModuleType"/>
+    <framework.type implementation="com.fr.plugin.FRFramework"/>
+
+    <!--File type support-->
+    <internalFileTemplate name="Main"/>
+    <fileTypeFactory implementation="com.intellij.openapi.fileTypes.impl.JavaFileTypeFactory"/>
+    <internalFileTemplate name="plugin"/>
+    <fileTypeFactory implementation="com.intellij.xml.XmlFileTypeFactory"/>
+
+
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+    <!--<group id="PubEditorPlugin.Menu" text="_Pub Editor" description="Pub Editor Menu">-->
+      <!--<add-to-group group-id="MainMenu" anchor="last"/>-->
+      <!--<action id="PubEditorPlugin.HelloWorldAction"-->
+              <!--class="com.fr.plugin.HelloAction"-->
+              <!--text="_Hello world" description="Hello world from PubEditor"/>-->
+    <!--</group>-->
+  </actions>
+
+</idea-plugin>

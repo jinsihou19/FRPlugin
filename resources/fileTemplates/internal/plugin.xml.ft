@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><plugin>
+    <id>com.fr.plugin.${NAME}</id>
+    <name><![CDATA[插件名称]]></name>
+    <active>yes</active>
+    <hidden>no</hidden>
+    <version>1.0</version>
+    <env-version>8.0</env-version>
+    <jartime>${FR_DATE}</jartime>
+    <vendor>${USER}</vendor>
+    <description><![CDATA[]]></description>
+    <change-notes><![CDATA[]]></change-notes>
+    <extra-core>
+        <LocaleFinder class="com.fr.plugin.${NAME}.locale.${CLASS_NAME}LocaleFinder"/>
+    </extra-core>
+</plugin>

@@ -1,0 +1,31 @@
+package ${PACKAGE};
+
+import com.fr.stable.fun.impl.AbstractFunctionProcessor;
+import com.fr.stable.fun.FunctionHelper;
+import com.fr.stable.fun.FunctionProcessor;
+import com.fr.plugin.ExtraClassManager;
+
+#parse("File Header.java")
+public class ${CLASS_NAME} {
+    public static final String PLUGIN_ID = "com.fr.plugin.${NAME}";
+
+    public static final FunctionProcessor FUNCTION_RECORD = new AbstractFunctionProcessor() {
+    @Override
+    public int getId() {
+        return FunctionHelper.generateFunctionID(PLUGIN_ID);
+    }
+
+    @Override
+    public String getLocaleKey() {
+        return "FS-Plugin_${CLASS_NAME}";
+        }
+    };
+
+    public ${CLASS_NAME}() {
+        //在构造函数中提供使用功能点记录的代码,在实际中请移到自己的代码入口中
+        FunctionProcessor processor = ExtraClassManager.getInstance().getFunctionProcessor();
+        if (processor != null) {
+            processor.recordFunction(FUNCTION_RECORD);
+        }
+    }
+}

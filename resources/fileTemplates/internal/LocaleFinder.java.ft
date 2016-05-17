@@ -1,0 +1,16 @@
+package ${PACKAGE};
+
+import com.fr.stable.fun.impl.AbstractLocaleFinder;
+
+#parse("File Header.java")
+public class ${CLASS_NAME}LocaleFinder extends AbstractLocaleFinder{
+
+    /**
+     * 国际化文件路径
+     *
+     * @return 路径
+     */
+    public String find() {
+        return "com/fr/plugin/${NAME}/locale/${NAME}";
+    }
+}
