@@ -15,6 +15,7 @@ import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.impl.PsiManagerImpl;
 import com.intellij.psi.impl.file.PsiJavaDirectoryImpl;
+import com.intellij.psi.impl.file.impl.FileManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
@@ -32,6 +33,7 @@ public class FRModuleBuilder extends JavaModuleBuilder implements ModuleBuilderL
     private static final String FR_DATE = "FR_DATE";
     private static final String PLUGIN_XML = "plugin.xml";
     private static final String BUILD_XML = "build.xml";
+    private static final String LIB_KEEP = ".keep";
 
 
     public FRModuleBuilder() {
@@ -64,11 +66,16 @@ public class FRModuleBuilder extends JavaModuleBuilder implements ModuleBuilderL
     }
 
     private void createProjectFile(Module module, VirtualFile srcRoot) throws Exception {
-        //src
-        PsiDirectory psiRootDirectory = new PsiJavaDirectoryImpl((PsiManagerImpl) PsiManager.getInstance(ProjectManager.getInstance().getDefaultProject()), srcRoot);
+        //project root
+        VirtualFile[] roots = ModuleRootManager.getInstance(module).getContentRoots();
+        PsiDirectory psiRootDirectory = new PsiJavaDirectoryImpl((PsiManagerImpl) PsiManager.getInstance(ProjectManager.getInstance().getDefaultProject()), roots[0]);
         createFile(module, PLUGIN_XML, psiRootDirectory, "plugin.xml");
         createFile(module, BUILD_XML, psiRootDirectory, "build.xml");
 
+        //lib
+        VirtualFile libDir = roots[0].createChildDirectory(this, "lib");
+        PsiDirectory psiLibDirectory = new PsiJavaDirectoryImpl((PsiManagerImpl) PsiManager.getInstance(ProjectManager.getInstance().getDefaultProject()), libDir);
+        createFile(module, LIB_KEEP, psiLibDirectory, ".keep");
         //com.fr.plugin.${NAME}
         VirtualFile pluginDir = srcRoot.createChildDirectory(this, "com")
                 .createChildDirectory(this, "fr")

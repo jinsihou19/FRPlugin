@@ -1,7 +1,6 @@
 package com.fr.plugin;
 
 import com.fr.plugin.ui.FRIcons;
-import com.intellij.icons.AllIcons;
 import com.intellij.ide.util.projectWizard.*;
 import com.intellij.openapi.module.JavaModuleType;
 import com.intellij.openapi.module.Module;

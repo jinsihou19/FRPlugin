@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>FineReport dev</id>
   <name>FineReport dev</name>
-  <version>0.1</version>
+  <version>0.2</version>
   <vendor email="jinsihou.1992@qq.com">jinsihou</vendor>
   <description><![CDATA[
       用来快速建立FineReport的插件模块代码.<br>
@@ -15,6 +15,12 @@
       <b>注意:创建之后请手动添加依赖。</b>
     ]]></description>
   <change-notes><![CDATA[
+    <p>【2016.06.15】<p>
+    <ul>
+      <li>自动生成lib目录和.keep文件</li>
+      <li>build.xml和plugin.xml在src文件夹内的bug</li>
+      <li>build.xml部分内容异常</li>
+    </ul>
     ]]>
   </change-notes>
 
