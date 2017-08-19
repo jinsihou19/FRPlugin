@@ -4,8 +4,8 @@ import com.fr.plugin.ui.FRIcons;
 import com.intellij.framework.FrameworkTypeEx;
 import com.intellij.framework.addSupport.FrameworkSupportInModuleConfigurable;
 import com.intellij.framework.addSupport.FrameworkSupportInModuleProvider;
-import com.intellij.icons.AllIcons;
 import com.intellij.ide.util.frameworkSupport.FrameworkSupportModel;
+import com.intellij.openapi.module.JavaModuleType;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleType;
 import com.intellij.openapi.roots.ModifiableModelsProvider;
@@ -19,19 +19,19 @@ import javax.swing.*;
  * Created by vito on 16/5/15.
  */
 public class FRFramework extends FrameworkTypeEx {
-    public static final String FRAMEWORK_ID = "FR_Plugin";
-    public static final String FUNCTION_RECORD_CHECK = "CHECK";
+    private static final String FRAMEWORK_ID = "FR_Plugin";
+    private static final String FUNCTION_RECORD_CHECK = "CHECK";
     private JCheckBox jCheckBox;
 
     protected FRFramework() {
         super(FRAMEWORK_ID);
-        jCheckBox = new JCheckBox("Function Record(important!)");
+        jCheckBox = new JCheckBox("插件功能点记录(重要，发布到商城的时候需要检测功能点)");
     }
 
     @NotNull
     @Override
     public String getPresentableName() {
-        return "FR Plugin Framework";
+        return "FineReport Plugin Framework";
     }
 
     @NotNull
@@ -64,16 +64,14 @@ public class FRFramework extends FrameworkTypeEx {
                     public void addSupport(@NotNull Module module, @NotNull ModifiableRootModel model, @NotNull ModifiableModelsProvider provider) {
                         //do what you want here: setup a library, generate a specific file, etc
                         module.setOption(FUNCTION_RECORD_CHECK, String.valueOf(jCheckBox.isSelected()));
+                        new FRFrameworkInit().init(module, model, provider);
                     }
                 };
             }
 
             @Override
-            public boolean isEnabledForModuleType(@NotNull ModuleType type) {
-                if (FRModuleType.ID.equals(type.getId())) {
-                    return true;
-                }
-                return false;
+            public boolean isEnabledForModuleType(@NotNull ModuleType moduleType) {
+                return JavaModuleType.getModuleType().equals(moduleType);
             }
         };
     }
