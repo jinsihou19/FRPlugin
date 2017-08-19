@@ -34,7 +34,6 @@
   -->
 
   <extensions defaultExtensionNs="com.intellij" >
-    <moduleType id="FR_JAVA_MODULE" implementationClass="com.fr.plugin.FRModuleType"/>
     <framework.type implementation="com.fr.plugin.FRFramework"/>
 
     <!--File type support-->
@@ -56,4 +55,9 @@
     <!--</group>-->
   </actions>
 
+  <!--<module-components>-->
+    <!--<component>-->
+      <!--<implementation-class>com.fr.plugin.z</implementation-class>-->
+    <!--</component>-->
+  <!--</module-components>-->
 </idea-plugin>
