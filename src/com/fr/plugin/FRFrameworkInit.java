@@ -23,12 +23,11 @@ import java.util.Properties;
 
 /**
  * Created by vito on 2017/8/19.
- * ³õÊ¼»¯²å¼þ¿ò¼Ü
+ * ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 public class FRFrameworkInit {
 
     private static final String PACKAGE_NAME = "com.fr.plugin.";
-    private static final String CLASS_NAME = "CLASS_NAME";
     private static final String PACKAGE_NAME_KEY = "PACKAGE";
     private static final String FR_DATE = "FR_DATE";
     private static final String PLUGIN_XML = "plugin.xml";
@@ -37,6 +36,7 @@ public class FRFrameworkInit {
     private static final Logger LOG = Logger.getInstance("#com.fr.plugin.FRFrameworkInit");
 
     public void init(@NotNull Module module, @NotNull ModifiableRootModel model, @NotNull ModifiableModelsProvider provider) {
+
         ApplicationManager.getApplication().runWriteAction(new Runnable() {
             @Override
             public void run() {
@@ -48,7 +48,6 @@ public class FRFrameworkInit {
             }
         });
     }
-
 
     private void createProjectFile(@NotNull Module module, @NotNull ModifiableRootModel model) throws Exception {
         VirtualFile[] contentRoots = model.getContentRoots();
@@ -91,13 +90,13 @@ public class FRFrameworkInit {
     }
 
     private static void createFile(@NotNull Module module, @NotNull String fileName, @NotNull PsiDirectory directory, @NotNull final String templateName) {
-        Properties props = new Properties(FileTemplateManager.getInstance().getDefaultProperties(directory.getProject()));
+        Properties props = new Properties(FileTemplateManager.getDefaultInstance().getDefaultProperties());
         props.setProperty(FileTemplate.ATTRIBUTE_NAME, module.getName());
-        props.setProperty(CLASS_NAME, makeClassName(module.getName()));
+        props.setProperty(FileTemplate.ATTRIBUTE_CLASS_NAME, makeClassName(module.getName()));
         props.setProperty(PACKAGE_NAME_KEY, PACKAGE_NAME + fileName);
         props.setProperty(FR_DATE, new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 
-        final FileTemplate template = FileTemplateManager.getInstance().getInternalTemplate(templateName);
+        final FileTemplate template = FileTemplateManager.getDefaultInstance().getInternalTemplate(templateName);
 
         try {
             FileTemplateUtil.createFromTemplate(template, fileName, props, directory);
