@@ -77,7 +77,6 @@ public class FRFrameworkInit {
         if ((NEW_VERSION).equals(module.getOptionValue(FR_VERSION))) {
             createFile(module, PLUGIN_XML, psiRootDirectory, "plugin_9.0.xml");
             createFile(module, BUILD_XML, psiRootDirectory, "build_9.0.xml");
-            createFile(module, module.getName(), psiDirectory, "Constants.java");
             createFile(module, module.getName(), psiDirectory, "Main_9.0.java");
             createFile(module, module.getName(), psiDirectory, "MainEntry_9.0.java");
         } else {

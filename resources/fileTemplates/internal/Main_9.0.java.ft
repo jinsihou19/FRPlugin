@@ -15,7 +15,7 @@ import java.util.concurrent.Executor;
 
 #parse("File Header.java")
 @FunctionRecorder
-@Authorize(callSignKey = Constants.PLUGIN_ID)
+@Authorize
 public class ${CLASS_NAME} {
 
     private static final Timer timer;
