@@ -1,0 +1,68 @@
+package ${PACKAGE};
+
+import com.fr.design.mainframe.DesignerContext;
+import com.fr.plugin.context.PluginContexts;
+import com.fr.plugin.context.hotdeploy.RecoverableTask;
+import com.fr.plugin.transform.ExecuteFunctionRecord;
+import com.fr.plugin.transform.FunctionRecorder;
+import com.fr.stable.fun.Authorize;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.Timer;
+import java.util.concurrent.Executor;
+
+#parse("File Header.java")
+@FunctionRecorder
+@Authorize(callSignKey = Constants.PLUGIN_ID)
+public class ${CLASS_NAME} {
+
+    private static final Timer timer;
+
+    private static final Executor executor;
+
+    //一些方法示例
+    static {
+        //生成Timer、Executor
+        timer = PluginContexts.currentContext().newTimer();
+        executor = PluginContexts.currentContext().newSingleThreadExecutor();
+        //添加Swing监听
+        PluginContexts.currentContext().executeRecoverable(new RecoverableTask() {
+
+            WindowListener listener = new WindowAdapter() {
+
+                @Override
+                public void windowActivated(WindowEvent e) {
+                    //do something
+                }
+
+                @Override
+                public void windowDeactivated(WindowEvent e) {
+                    //do something
+                }
+            };
+
+            @Override
+            public void execute() {
+
+                DesignerContext.getDesignerFrame().addWindowListener(listener);
+            }
+
+            @Override
+            public void undo() {
+
+                DesignerContext.getDesignerFrame().removeWindowListener(listener);
+            }
+        });
+    }
+
+    /**
+     * 示例代码中功能点注解写在构造方法中，在实际中请移到自己的代码入口中
+     */
+    @ExecuteFunctionRecord
+    public ${CLASS_NAME}() {
+        //do something
+    }
+}
+

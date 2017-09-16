@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plugin>
+    <id>com.fr.plugin.${NAME}</id>
+    <name><![CDATA[${NAME}]]></name>
+    <active>yes</active>
+    <hidden>no</hidden>
+    <version>1.0</version>
+    <env-version>9.0</env-version>
+    <jartime>${FR_DATE}</jartime>
+    <vendor>${USER}</vendor>
+    <description><![CDATA[描述]]></description>
+    <change-notes><![CDATA[无]]></change-notes>
+    <!--主包-->
+    <main-package>com.fr.plugin</main-package>
+    <!--功能记录点类-->
+    <function-recorder class="com.fr.plugin.${CLASS_NAME}"/>
+    <!--全局入口和出口-->
+    <lifecycle-monitor class="com.fr.plugin.${CLASS_NAME}Entry"/>
+    <extra-core>
+        <LocaleFinder class="com.fr.plugin.${NAME}.locale.${CLASS_NAME}LocaleFinder"/>
+    </extra-core>
+    <attributes>
+        <!--自定义属性-->
+        <custom-attrubutes/>
+    </attributes>
+</plugin>

@@ -27,6 +27,9 @@ import java.util.Properties;
  */
 public class FRFrameworkInit {
 
+    static final String FUNCTION_RECORD_CHECK = "CHECK";
+    static final String FR_VERSION = "VERSION";
+    public static final String NEW_VERSION = "9.0";
     private static final String PACKAGE_NAME = "com.fr.plugin.";
     private static final String PACKAGE_NAME_KEY = "PACKAGE";
     private static final String FR_DATE = "FR_DATE";
@@ -59,8 +62,6 @@ public class FRFrameworkInit {
         VirtualFile srcRoot = srcRoots[0];
 
         PsiDirectory psiRootDirectory = new PsiJavaDirectoryImpl((PsiManagerImpl) PsiManager.getInstance(ProjectManager.getInstance().getDefaultProject()), contentRoot);
-        createFile(module, PLUGIN_XML, psiRootDirectory, "plugin.xml");
-        createFile(module, BUILD_XML, psiRootDirectory, "build.xml");
 
         //lib
         VirtualFile libDir = contentRoot.createChildDirectory(this, "lib");
@@ -73,10 +74,20 @@ public class FRFrameworkInit {
                 .createChildDirectory(this, "plugin")
                 .createChildDirectory(this, module.getName());
         PsiDirectory psiDirectory = new PsiJavaDirectoryImpl((PsiManagerImpl) PsiManager.getInstance(ProjectManager.getInstance().getDefaultProject()), pluginDir);
-        if (("true").equals(module.getOptionValue("CHECK"))) {
-            createFile(module, module.getName(), psiDirectory, "Main.java");
+        if ((NEW_VERSION).equals(module.getOptionValue(FR_VERSION))) {
+            createFile(module, PLUGIN_XML, psiRootDirectory, "plugin_9.0.xml");
+            createFile(module, BUILD_XML, psiRootDirectory, "build_9.0.xml");
+            createFile(module, module.getName(), psiDirectory, "Constants.java");
+            createFile(module, module.getName(), psiDirectory, "Main_9.0.java");
+            createFile(module, module.getName(), psiDirectory, "MainEntry_9.0.java");
         } else {
-            createFile(module, module.getName(), psiDirectory, "MainNoFuncRe.java");
+            createFile(module, PLUGIN_XML, psiRootDirectory, "plugin.xml");
+            createFile(module, BUILD_XML, psiRootDirectory, "build.xml");
+            if (("true").equals(module.getOptionValue(FUNCTION_RECORD_CHECK))) {
+                createFile(module, module.getName(), psiDirectory, "Main.java");
+            } else {
+                createFile(module, module.getName(), psiDirectory, "MainNoFuncRe.java");
+            }
         }
 
         //com.fr.plugin.${NAME}.resource.locale

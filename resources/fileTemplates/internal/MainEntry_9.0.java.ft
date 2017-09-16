@@ -1,0 +1,18 @@
+package ${PACKAGE};
+
+import com.fr.plugin.context.PluginContext;
+import com.fr.plugin.observer.inner.AbstractPluginLifecycleMonitor;
+
+#parse("File Header.java")
+public class ${CLASS_NAME}Entry extends AbstractPluginLifecycleMonitor{
+
+    @Override
+    public void afterRun(PluginContext context) {
+        //do something
+    }
+
+    @Override
+    public void beforeStop(PluginContext context) {
+        //do something
+    }
+}

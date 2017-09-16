@@ -1,6 +1,7 @@
 package com.fr.plugin;
 
 import com.fr.plugin.ui.FRIcons;
+import com.fr.plugin.ui.Setting;
 import com.intellij.framework.FrameworkTypeEx;
 import com.intellij.framework.addSupport.FrameworkSupportInModuleConfigurable;
 import com.intellij.framework.addSupport.FrameworkSupportInModuleProvider;
@@ -20,12 +21,11 @@ import javax.swing.*;
  */
 public class FRFramework extends FrameworkTypeEx {
     private static final String FRAMEWORK_ID = "FR_Plugin";
-    private static final String FUNCTION_RECORD_CHECK = "CHECK";
-    private JCheckBox jCheckBox;
+    private Setting setting;
 
     protected FRFramework() {
         super(FRAMEWORK_ID);
-        jCheckBox = new JCheckBox("插件功能点记录(重要，发布到商城的时候需要检测功能点)");
+        setting = new Setting();
     }
 
     @NotNull
@@ -57,13 +57,14 @@ public class FRFramework extends FrameworkTypeEx {
                     @Nullable
                     @Override
                     public JComponent createComponent() {
-                        return jCheckBox;
+                        return setting.settingPane;
                     }
 
                     @Override
                     public void addSupport(@NotNull Module module, @NotNull ModifiableRootModel model, @NotNull ModifiableModelsProvider provider) {
                         //do what you want here: setup a library, generate a specific file, etc
-                        module.setOption(FUNCTION_RECORD_CHECK, String.valueOf(jCheckBox.isSelected()));
+                        module.setOption(FRFrameworkInit.FUNCTION_RECORD_CHECK, String.valueOf(setting.needFunctionRecord()));
+                        module.setOption(FRFrameworkInit.FR_VERSION, String.valueOf(setting.getVersion()));
                         new FRFrameworkInit().init(module, model, provider);
                     }
                 };
